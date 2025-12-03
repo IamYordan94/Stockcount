@@ -18,8 +18,10 @@ export default async function ItemsPage() {
     )
   }
 
+  type Item = NonNullable<typeof items>[number]
+
   // Group items by category
-  const groupedItems = (items || []).reduce((acc, item) => {
+  const groupedItems = (items || []).reduce<Record<string, Item[]>>((acc, item) => {
     const category = item.category || 'Uncategorized'
     if (!acc[category]) {
       acc[category] = []

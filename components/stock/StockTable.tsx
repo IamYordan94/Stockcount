@@ -109,9 +109,9 @@ export default function StockTable({ items, onUpdate, loading }: StockTableProps
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {categoryItems.map((item) => {
-                  const isEditing = editing[item.id]
+                  const edited = editing[item.id]
+                  const isEditing = !!edited
                   const isUpdating = updating.has(item.id)
-                  const edited = isEditing ? editing[item.id] : null
 
                   return (
                     <tr key={item.id}>

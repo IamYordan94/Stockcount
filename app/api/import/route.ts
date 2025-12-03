@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
       // Get or create item
       let { data: existingItem, error: itemError } = await supabase
         .from('items')
-        .select('id')
+        .select('id, category, packaging_unit_description')
         .eq('name', item.productinformatie)
         .single()
 
@@ -91,6 +91,10 @@ export async function POST(request: NextRequest) {
         console.error('Failed to get item:', itemError)
         continue
       } else {
+        if (!existingItem) {
+          console.error('Item lookup returned null without error for', item.productinformatie)
+          continue
+        }
         itemId = existingItem.id
         // Update item category if needed
         await supabase

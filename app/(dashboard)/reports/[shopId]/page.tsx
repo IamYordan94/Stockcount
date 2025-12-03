@@ -43,19 +43,35 @@ export default async function ShopReportPage({
     .order('items(category)', { ascending: true })
     .order('items(name)', { ascending: true })
 
+  type StockRow = {
+    id: string
+    packaging_units: number
+    loose_pieces: number
+    items: {
+      id: string
+      name: string
+      category: string | null
+      packaging_unit_description: string | null
+    }
+  }
+
+  const typedStock = (stock || []) as StockRow[]
+
   // Group by category
-  const groupedStock = (stock || []).reduce((acc, s: any) => {
+  const groupedStock = typedStock.reduce<Record<string, StockRow[]>>((acc, s) => {
     const category = s.items.category || 'Uncategorized'
     if (!acc[category]) {
       acc[category] = []
     }
     acc[category].push(s)
     return acc
-  }, {} as Record<string, any[]>)
+  }, {} as Record<string, StockRow[]>)
+
+  const groupedEntries = Object.entries(groupedStock) as [string, StockRow[]][]
 
   // Calculate totals
-  const totalPackaging = (stock || []).reduce((sum, s: any) => sum + (s.packaging_units || 0), 0)
-  const totalLoose = (stock || []).reduce((sum, s: any) => sum + (s.loose_pieces || 0), 0)
+  const totalPackaging = typedStock.reduce((sum, s) => sum + (s.packaging_units || 0), 0)
+  const totalLoose = typedStock.reduce((sum, s) => sum + (s.loose_pieces || 0), 0)
 
   return (
     <div>
@@ -76,7 +92,7 @@ export default async function ShopReportPage({
 
       {Object.keys(groupedStock).length > 0 ? (
         <div className="space-y-6">
-          {Object.entries(groupedStock).map(([category, categoryStock]) => (
+          {groupedEntries.map(([category, categoryStock]) => (
             <div key={category} className="bg-white shadow rounded-lg overflow-hidden">
               <div className="bg-gray-50 px-4 py-2 border-b">
                 <h3 className="text-lg font-semibold text-gray-900">{category}</h3>
@@ -100,7 +116,7 @@ export default async function ShopReportPage({
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {categoryStock.map((s: any) => (
+                    {categoryStock.map((s) => (
                       <tr key={s.id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {s.items.name}
