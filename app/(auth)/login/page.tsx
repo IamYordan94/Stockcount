@@ -18,7 +18,7 @@ export default function LoginPage() {
     setLoading(true)
 
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
@@ -26,8 +26,31 @@ export default function LoginPage() {
     if (error) {
       setError(error.message)
       setLoading(false)
-    } else {
-      router.push('/dashboard')
+    } else if (signInData.user) {
+      // Check if user must change password
+      const { data: role } = await supabase
+        .from('user_roles')
+        .select('must_change_password')
+        .eq('id', signInData.user.id)
+        .single()
+
+      // If must_change_password is true, redirect to change password
+      if (role?.must_change_password) {
+        router.push('/change-password')
+      } else {
+        // Otherwise, check if first user (no admins exist) and redirect to setup
+        const { data: admins } = await supabase
+          .from('user_roles')
+          .select('id')
+          .eq('role', 'admin')
+          .limit(1)
+
+        if (!admins || admins.length === 0) {
+          router.push('/setup')
+        } else {
+          router.push('/dashboard')
+        }
+      }
       router.refresh()
     }
   }
