@@ -55,12 +55,31 @@ export async function updateSession(request: NextRequest) {
   if (user && !request.nextUrl.pathname.startsWith('/login') && 
       !request.nextUrl.pathname.startsWith('/register') &&
       !request.nextUrl.pathname.startsWith('/change-password')) {
-    const { data: role } = await supabase
+    const { data: role, error: roleError } = await supabase
       .from('user_roles')
       .select('must_change_password')
       .eq('id', user.id)
       .single()
 
+    // If user_roles entry doesn't exist, create it (backup safety)
+    if (roleError && roleError.code === 'PGRST116') {
+      // User doesn't have a role entry - create default one
+      await supabase
+        .from('user_roles')
+        .insert({
+          id: user.id,
+          role: 'staff',
+          shop_id: null,
+          must_change_password: true,
+        })
+      
+      // Redirect to change password since this is effectively a first login
+      const url = request.nextUrl.clone()
+      url.pathname = '/change-password'
+      return NextResponse.redirect(url)
+    }
+
+    // If role exists and must_change_password is true, redirect
     if (role?.must_change_password) {
       const url = request.nextUrl.clone()
       url.pathname = '/change-password'

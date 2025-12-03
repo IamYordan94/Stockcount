@@ -11,7 +11,8 @@ export default function ExcelImport() {
   const [loading, setLoading] = useState(false)
   const [importing, setImporting] = useState(false)
   const [importProgress, setImportProgress] = useState<string>('')
-  const [importResult, setImportResult] = useState<{ success: boolean; message: string } | null>(null)
+  const [importResult, setImportResult] = useState<{ success: boolean; message: string; details?: string } | null>(null)
+  const [shopErrors, setShopErrors] = useState<Map<string, string>>(new Map())
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
@@ -60,6 +61,7 @@ export default function ExcelImport() {
       const sheetsToImport = Array.from(selectedSheets)
       let successCount = 0
       let errorCount = 0
+      const errors = new Map<string, string>()
 
       for (const sheetName of sheetsToImport) {
         const sheet = parsedSheets.get(sheetName)
@@ -78,18 +80,23 @@ export default function ExcelImport() {
           }),
         })
 
-        if (response.ok) {
+        const result = await response.json()
+
+        if (response.ok && result.success) {
           successCount++
         } else {
           errorCount++
-          const error = await response.json()
-          console.error(`Error importing ${sheet.shopName}:`, error)
+          const errorMessage = result.details || result.error || 'Unknown error'
+          errors.set(sheet.shopName, errorMessage)
+          console.error(`Error importing ${sheet.shopName}:`, result)
         }
       }
 
+      setShopErrors(errors)
       setImportResult({
         success: errorCount === 0,
         message: `Import completed: ${successCount} shops imported successfully${errorCount > 0 ? `, ${errorCount} failed` : ''}`,
+        details: errorCount > 0 ? 'See details below for failed shops' : undefined,
       })
 
       if (errorCount === 0) {
@@ -232,26 +239,43 @@ export default function ExcelImport() {
 
         {importResult && (
           <div
-            className={`mt-4 p-4 rounded-md flex items-start ${
+            className={`mt-4 p-4 rounded-md ${
               importResult.success
                 ? 'bg-green-50 border border-green-200'
                 : 'bg-red-50 border border-red-200'
             }`}
           >
-            {importResult.success ? (
-              <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
-            ) : (
-              <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
-            )}
-            <div className="ml-3">
-              <p
-                className={`text-sm font-medium ${
-                  importResult.success ? 'text-green-800' : 'text-red-800'
-                }`}
-              >
-                {importResult.message}
-              </p>
+            <div className="flex items-start">
+              {importResult.success ? (
+                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+              ) : (
+                <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
+              )}
+              <div className="ml-3 flex-1">
+                <p
+                  className={`text-sm font-medium ${
+                    importResult.success ? 'text-green-800' : 'text-red-800'
+                  }`}
+                >
+                  {importResult.message}
+                </p>
+                {importResult.details && (
+                  <p className="mt-1 text-sm text-red-700">{importResult.details}</p>
+                )}
+              </div>
             </div>
+            {shopErrors.size > 0 && (
+              <div className="mt-3 pt-3 border-t border-red-200">
+                <p className="text-sm font-medium text-red-800 mb-2">Failed Shops:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  {Array.from(shopErrors.entries()).map(([shopName, error]) => (
+                    <li key={shopName} className="text-sm text-red-700">
+                      <strong>{shopName}:</strong> {error}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -86,7 +86,9 @@ export default function StockTable({ items, onUpdate, loading }: StockTableProps
           <div className="bg-gray-50 px-4 py-2 border-b">
             <h3 className="text-lg font-semibold text-gray-900">{category}</h3>
           </div>
-          <div className="overflow-x-auto">
+          
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
@@ -127,6 +129,7 @@ export default function StockTable({ items, onUpdate, loading }: StockTableProps
                         {isEditing ? (
                           <input
                             type="number"
+                            inputMode="numeric"
                             value={edited.packaging_units}
                             onChange={(e) => {
                               const value = parseInt(e.target.value, 10) || 0
@@ -146,6 +149,7 @@ export default function StockTable({ items, onUpdate, loading }: StockTableProps
                         {isEditing ? (
                           <input
                             type="number"
+                            inputMode="numeric"
                             value={edited.loose_pieces}
                             onChange={(e) => {
                               const value = parseInt(e.target.value, 10) || 0
@@ -193,6 +197,100 @@ export default function StockTable({ items, onUpdate, loading }: StockTableProps
                 })}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden divide-y divide-gray-200">
+            {categoryItems.map((item) => {
+              const edited = editing[item.id]
+              const isEditing = !!edited
+              const isUpdating = updating.has(item.id)
+
+              return (
+                <div key={item.id} className="p-4">
+                  <div className="mb-3">
+                    <h4 className="text-sm font-medium text-gray-900">{item.item_name}</h4>
+                    {item.packaging_unit_description && (
+                      <p className="text-xs text-gray-500 mt-1">{item.packaging_unit_description}</p>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Aantal</label>
+                      {isEditing ? (
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          value={edited.packaging_units}
+                          onChange={(e) => {
+                            const value = parseInt(e.target.value, 10) || 0
+                            setEditing({
+                              ...editing,
+                              [item.id]: { ...edited, packaging_units: value },
+                            })
+                          }}
+                          className="w-full px-3 py-2 text-base border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                          min="0"
+                        />
+                      ) : (
+                        <div className="text-base text-gray-900 font-medium">{item.packaging_units}</div>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">Losse Stuks</label>
+                      {isEditing ? (
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          value={edited.loose_pieces}
+                          onChange={(e) => {
+                            const value = parseInt(e.target.value, 10) || 0
+                            setEditing({
+                              ...editing,
+                              [item.id]: { ...edited, loose_pieces: value },
+                            })
+                          }}
+                          className="w-full px-3 py-2 text-base border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                          min="0"
+                        />
+                      ) : (
+                        <div className="text-base text-gray-900 font-medium">{item.loose_pieces}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex space-x-2">
+                    {isEditing ? (
+                      <>
+                        <button
+                          onClick={() => handleSave(item.id)}
+                          disabled={isUpdating}
+                          className="flex-1 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+                        >
+                          {isUpdating ? 'Saving...' : 'Save'}
+                        </button>
+                        <button
+                          onClick={() => handleCancel(item.id)}
+                          disabled={isUpdating}
+                          className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => handleEdit(item.id, item.packaging_units, item.loose_pieces)}
+                        className="w-full px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 min-h-[44px]"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       ))}

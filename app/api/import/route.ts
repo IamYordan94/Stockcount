@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { getUserRole } from '@/lib/utils/roles'
 
 export async function POST(request: NextRequest) {
   try {
@@ -7,7 +8,19 @@ export async function POST(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ 
+        error: 'Unauthorized', 
+        details: 'You must be logged in to import data' 
+      }, { status: 401 })
+    }
+
+    // Check if user has admin role (required for import)
+    const role = await getUserRole(user.id)
+    if (role !== 'admin') {
+      return NextResponse.json({ 
+        error: 'Forbidden', 
+        details: 'Only administrators can import shops and items. Please contact an admin to import data.' 
+      }, { status: 403 })
     }
 
     const body = await request.json()
@@ -15,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     if (!shopName || !items || !Array.isArray(items)) {
       return NextResponse.json(
-        { error: 'Invalid request data' },
+        { error: 'Invalid request data', details: 'Missing shopName or items array' },
         { status: 400 }
       )
     }
@@ -36,15 +49,26 @@ export async function POST(request: NextRequest) {
         .single()
 
       if (createError) {
+        console.error('Failed to create shop:', createError)
         return NextResponse.json(
-          { error: 'Failed to create shop', details: createError.message },
+          { 
+            error: 'Failed to create shop', 
+            details: createError.message,
+            code: createError.code,
+            hint: createError.hint || 'Check if you have permission to create shops'
+          },
           { status: 500 }
         )
       }
       shop = newShop
     } else if (shopError) {
+      console.error('Failed to get shop:', shopError)
       return NextResponse.json(
-        { error: 'Failed to get shop', details: shopError.message },
+        { 
+          error: 'Failed to get shop', 
+          details: shopError.message,
+          code: shopError.code
+        },
         { status: 500 }
       )
     }
@@ -135,6 +159,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Batch insert and update
+    let insertErrors: string[] = []
+    let updateErrors: string[] = []
+
     if (itemsToInsert.length > 0) {
       const { error: insertError } = await supabase
         .from('shop_stock')
@@ -142,6 +169,7 @@ export async function POST(request: NextRequest) {
 
       if (insertError) {
         console.error('Failed to insert stock:', insertError)
+        insertErrors.push(insertError.message)
       }
     }
 
@@ -155,13 +183,28 @@ export async function POST(request: NextRequest) {
 
         if (updateError) {
           console.error('Failed to update stock:', updateError)
+          updateErrors.push(updateError.message)
         }
       }
     }
 
+    // If there were errors, return partial success
+    if (insertErrors.length > 0 || updateErrors.length > 0) {
+      return NextResponse.json({
+        success: false,
+        message: `Partially imported ${shopName}. Some items failed.`,
+        inserted: itemsToInsert.length - insertErrors.length,
+        updated: itemsToUpdate.length - updateErrors.length,
+        errors: {
+          insert: insertErrors,
+          update: updateErrors,
+        },
+      }, { status: 207 }) // 207 Multi-Status
+    }
+
     return NextResponse.json({
       success: true,
-      message: `Imported ${items.length} items for ${shopName}`,
+      message: `Successfully imported ${items.length} items for ${shopName}`,
       inserted: itemsToInsert.length,
       updated: itemsToUpdate.length,
     })

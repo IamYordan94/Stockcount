@@ -35,23 +35,26 @@ export default function QuantityInput({ label, value, onChange, min = 0 }: Quant
           type="button"
           onClick={handleDecrement}
           disabled={value <= min}
-          className="p-1 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="p-2 md:p-1 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 flex items-center justify-center"
+          aria-label="Decrease"
         >
-          <Minus className="h-4 w-4" />
+          <Minus className="h-5 w-5 md:h-4 md:w-4" />
         </button>
         <input
           type="number"
+          inputMode="numeric"
           value={value}
           onChange={handleChange}
           min={min}
-          className="w-16 px-2 py-1 text-center border-0 focus:ring-0 focus:outline-none"
+          className="w-20 md:w-16 px-2 py-2 md:py-1 text-base md:text-sm text-center border-0 focus:ring-0 focus:outline-none"
         />
         <button
           type="button"
           onClick={handleIncrement}
-          className="p-1 hover:bg-gray-100"
+          className="p-2 md:p-1 hover:bg-gray-100 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 flex items-center justify-center"
+          aria-label="Increase"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-5 w-5 md:h-4 md:w-4" />
         </button>
       </div>
     </div>

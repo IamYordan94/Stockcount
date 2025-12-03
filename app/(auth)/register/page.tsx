@@ -30,7 +30,7 @@ export default function RegisterPage() {
     setLoading(true)
 
     const supabase = createClient()
-    const { error } = await supabase.auth.signUp({
+    const { data: signUpData, error } = await supabase.auth.signUp({
       email,
       password,
     })
@@ -38,9 +38,26 @@ export default function RegisterPage() {
     if (error) {
       setError(error.message)
       setLoading(false)
-    } else {
-      // Note: In production, you might want to show a confirmation message
-      // For now, redirect to login
+    } else if (signUpData.user) {
+      // Backup: Create user_roles entry if trigger didn't fire
+      // (The database trigger should handle this, but this is a safety net)
+      try {
+        await supabase
+          .from('user_roles')
+          .insert({
+            id: signUpData.user.id,
+            role: 'staff',
+            shop_id: null,
+            must_change_password: true,
+          })
+          .select()
+          .single()
+      } catch (roleError) {
+        // Ignore if role already exists (trigger already created it)
+        console.log('User role may already exist (trigger handled it)')
+      }
+      
+      // Redirect to login
       router.push('/login?registered=true')
     }
   }
