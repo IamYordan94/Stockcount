@@ -14,9 +14,13 @@ CREATE TABLE IF NOT EXISTS shop_assignments (
   shop_id UUID NOT NULL REFERENCES shops(id) ON DELETE CASCADE,
   assigned_by UUID NOT NULL REFERENCES auth.users(id),
   assigned_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  active BOOLEAN DEFAULT true,
-  UNIQUE(user_id, shop_id) WHERE active = true
+  active BOOLEAN DEFAULT true
 );
+
+-- Create unique index for active assignments (prevents duplicate active assignments)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_shop_assignments_unique_active 
+ON shop_assignments(user_id, shop_id) 
+WHERE active = true;
 
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_shop_assignments_user_id ON shop_assignments(user_id);
