@@ -64,7 +64,14 @@ export default async function ShopsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Shops</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Shops</h1>
+          {role === 'admin' && (
+            <p className="text-sm text-gray-600 mt-1">
+              As an admin, you can access all shops to count stock. Click on any shop to start counting.
+            </p>
+          )}
+        </div>
         {role === 'admin' && (
           <Link
             href="/dashboard/shops/new"

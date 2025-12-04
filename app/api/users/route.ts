@@ -100,8 +100,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: createError.message }, { status: 400 })
     }
 
-    // Create user role
-    const { error: roleError } = await supabase
+    // Create user role using admin client to bypass RLS
+    const { error: roleError } = await adminClient
       .from('user_roles')
       .insert({
         id: newUser.user.id,
@@ -112,9 +112,14 @@ export async function POST(request: NextRequest) {
       })
 
     if (roleError) {
+      console.error('Error creating user role:', roleError)
       // Rollback: delete the auth user if role creation fails
       await adminClient.auth.admin.deleteUser(newUser.user.id)
-      return NextResponse.json({ error: 'Failed to create user role' }, { status: 500 })
+      return NextResponse.json({ 
+        error: `Failed to create user role: ${roleError.message}`,
+        details: roleError.details,
+        hint: roleError.hint
+      }, { status: 500 })
     }
 
     return NextResponse.json({
