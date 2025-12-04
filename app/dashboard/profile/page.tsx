@@ -38,7 +38,7 @@ export default function ProfilePage() {
 
       setUser(currentUser)
       setEmail(currentUser.email || '')
-      setFullName(currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '')
+      setFullName(currentUser.user_metadata?.display_name || currentUser.user_metadata?.name || currentUser.user_metadata?.full_name || '')
     } catch (err) {
       console.error('Error loading user:', err)
       setError('Failed to load user data')
@@ -57,8 +57,9 @@ export default function ProfilePage() {
       const supabase = createClient()
       const { error: updateError } = await supabase.auth.updateUser({
         data: {
-          full_name: fullName,
+          display_name: fullName,
           name: fullName,
+          full_name: fullName,
         }
       })
 
@@ -177,7 +178,7 @@ export default function ProfilePage() {
 
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                Full Name
+                Display Name
               </label>
               <input
                 type="text"
@@ -185,8 +186,11 @@ export default function ProfilePage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Enter your full name"
+                placeholder="Enter your display name"
               />
+              <p className="mt-1 text-sm text-gray-500">
+                This name will be shown in the app instead of your email address.
+              </p>
             </div>
 
             <div className="flex justify-end">

@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { email, password, role, shop_id } = body
+    const { email, password, role, shop_id, display_name } = body
 
     if (!email || !password || !role) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -90,6 +90,10 @@ export async function POST(request: NextRequest) {
       email,
       password,
       email_confirm: true, // Auto-confirm email
+      user_metadata: {
+        display_name: display_name || email.split('@')[0], // Fallback to email username if not provided
+        name: display_name || email.split('@')[0],
+      },
     })
 
     if (createError) {

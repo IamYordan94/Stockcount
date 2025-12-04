@@ -16,10 +16,18 @@ export async function POST(request: NextRequest) {
 
     // Check if user has admin role (required for import)
     const role = await getUserRole(user.id)
-    if (role !== 'admin') {
+    
+    // Debug logging to diagnose role detection issues
+    console.log('Import API - User ID:', user.id)
+    console.log('Import API - User Email:', user.email)
+    console.log('Import API - Detected Role:', role)
+    console.log('Import API - Role Check:', role === 'admin')
+    
+    if (!role || role !== 'admin') {
       return NextResponse.json({ 
         error: 'Forbidden', 
-        details: 'Only administrators can import shops and items. Please contact an admin to import data.' 
+        details: 'Only administrators can import shops and items. Please contact an admin to import data.',
+        debug: { userId: user.id, detectedRole: role }
       }, { status: 403 })
     }
 

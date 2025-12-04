@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
-import { canAccessShop } from '@/lib/utils/roles'
+import { canAccessShop, getUserRole } from '@/lib/utils/roles'
 import { redirect } from 'next/navigation'
+import { Download } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function ShopReportPage({
   params,
@@ -19,6 +21,9 @@ export default async function ShopReportPage({
   if (!hasAccess) {
     redirect('/dashboard/reports')
   }
+
+  const role = await getUserRole(user.id)
+  const isAdmin = role === 'admin'
 
   // Get shop
   const { data: shop } = await supabase
@@ -75,8 +80,23 @@ export default async function ShopReportPage({
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">{shop?.name} - Stock Report</h1>
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <Link href="/dashboard/reports" className="text-indigo-600 hover:text-indigo-800 text-sm">
+            ← Back to Reports
+          </Link>
+          <h1 className="text-3xl font-bold text-gray-900 mt-2">{shop?.name} - Stock Report</h1>
+        </div>
+        {isAdmin && (
+          <a
+            href={`/api/export/${params.shopId}`}
+            download
+            className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors min-h-[44px]"
+          >
+            <Download className="h-5 w-5 mr-2" />
+            Download Excel
+          </a>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">

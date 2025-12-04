@@ -66,11 +66,18 @@ After deployment, you'll need to manually create the first admin user:
 3. Find your user and note their UUID
 4. Go to SQL Editor and run:
 ```sql
-INSERT INTO user_roles (id, role, shop_id)
-VALUES ('<user-uuid>', 'admin', NULL);
+INSERT INTO user_roles (id, role, shop_id, must_change_password)
+VALUES ('<user-uuid>', 'admin', NULL, false)
+ON CONFLICT (id) 
+DO UPDATE SET 
+  role = 'admin',
+  shop_id = NULL,
+  must_change_password = false;
 ```
 
 Replace `<user-uuid>` with the actual UUID from step 3.
+
+**Note**: This query works whether you already have a user_roles entry or not.
 
 ## Step 6: Test the Application
 

@@ -8,7 +8,8 @@ export default function NewUserPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'admin' | 'manager' | 'staff'>('staff')
+  const [displayName, setDisplayName] = useState('')
+  const [role, setRole] = useState<'admin' | 'staff'>('staff')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -21,7 +22,7 @@ export default function NewUserPage() {
       const response = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({ email, password, role, display_name: displayName }),
       })
 
       const data = await response.json()
@@ -70,6 +71,24 @@ export default function NewUserPage() {
           </div>
 
           <div>
+            <label htmlFor="displayName" className="block text-sm font-medium text-gray-700">
+              Display Name
+            </label>
+            <input
+              type="text"
+              id="displayName"
+              required
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              placeholder="Enter display name"
+            />
+            <p className="mt-1 text-sm text-gray-500">
+              This name will be shown in the app instead of email address.
+            </p>
+          </div>
+
+          <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Initial Password
             </label>
@@ -94,11 +113,10 @@ export default function NewUserPage() {
             <select
               id="role"
               value={role}
-              onChange={(e) => setRole(e.target.value as 'admin' | 'manager' | 'staff')}
+              onChange={(e) => setRole(e.target.value as 'admin' | 'staff')}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             >
               <option value="staff">Staff</option>
-              <option value="manager">Manager</option>
               <option value="admin">Admin</option>
             </select>
           </div>

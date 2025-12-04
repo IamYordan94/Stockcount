@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { getUserRole, getUserShopId } from '@/lib/utils/roles'
 import Link from 'next/link'
-import { Store } from 'lucide-react'
+import { Store, Download } from 'lucide-react'
 
 export default async function ReportsPage() {
   const supabase = await createClient()
@@ -25,7 +25,19 @@ export default async function ReportsPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Reports</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Reports</h1>
+        {role === 'admin' && (
+          <a
+            href="/api/export"
+            download
+            className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors min-h-[44px]"
+          >
+            <Download className="h-5 w-5 mr-2" />
+            Download Excel
+          </a>
+        )}
+      </div>
 
       {shops && shops.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -40,7 +52,7 @@ export default async function ReportsPage() {
                   <div className="flex-shrink-0">
                     <Store className="h-8 w-8 text-indigo-600" />
                   </div>
-                  <div className="ml-4">
+                  <div className="ml-4 flex-1">
                     <h3 className="text-lg font-medium text-gray-900">
                       {shop.name}
                     </h3>
@@ -48,6 +60,16 @@ export default async function ReportsPage() {
                       View stock report
                     </p>
                   </div>
+                  {role === 'admin' && (
+                    <a
+                      href={`/api/export/${shop.id}`}
+                      download
+                      onClick={(e) => e.stopPropagation()}
+                      className="mr-4 p-2 text-indigo-600 hover:text-indigo-800 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    >
+                      <Download className="h-5 w-5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </Link>

@@ -15,6 +15,15 @@ export default function Navbar() {
     })
   }, [])
 
+  const getDisplayName = () => {
+    if (!user) return ''
+    return user.user_metadata?.display_name || 
+           user.user_metadata?.name || 
+           user.email?.split('@')[0] || 
+           user.email || 
+           'User'
+  }
+
   const handleLogout = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
@@ -31,11 +40,11 @@ export default function Navbar() {
           </div>
           <div className="flex items-center space-x-4">
             {user && (
-              <span className="text-sm text-gray-700">{user.email}</span>
+              <span className="text-sm text-gray-700">{getDisplayName()}</span>
             )}
             <button
               onClick={handleLogout}
-              className="text-sm text-gray-700 hover:text-gray-900"
+              className="text-sm text-gray-700 hover:text-gray-900 min-h-[44px] px-3"
             >
               Logout
             </button>

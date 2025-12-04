@@ -131,19 +131,19 @@ export interface Database {
       user_roles: {
         Row: {
           id: string
-          role: 'admin' | 'manager' | 'staff'
+          role: 'admin' | 'staff'
           shop_id: string | null
           created_at: string
         }
         Insert: {
           id: string
-          role: 'admin' | 'manager' | 'staff'
+          role: 'admin' | 'staff'
           shop_id?: string | null
           created_at?: string
         }
         Update: {
           id?: string
-          role?: 'admin' | 'manager' | 'staff'
+          role?: 'admin' | 'staff'
           shop_id?: string | null
           created_at?: string
         }

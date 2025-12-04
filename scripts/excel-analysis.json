@@ -1,0 +1,734 @@
+{
+  "shops": [
+    {
+      "name": "Winkel Rijks",
+      "itemCount": 46
+    },
+    {
+      "name": "Ponton Rijks",
+      "itemCount": 22
+    },
+    {
+      "name": "ARK Rijks",
+      "itemCount": 48
+    },
+    {
+      "name": "Leidse",
+      "itemCount": 48
+    },
+    {
+      "name": "CS Oost",
+      "itemCount": 42
+    },
+    {
+      "name": "Bridge",
+      "itemCount": 48
+    },
+    {
+      "name": "Damrak 5",
+      "itemCount": 48
+    },
+    {
+      "name": "Damrak 6",
+      "itemCount": 47
+    },
+    {
+      "name": "Vlaggenwinkel",
+      "itemCount": 48
+    },
+    {
+      "name": "Damrak 4",
+      "itemCount": 0
+    },
+    {
+      "name": "VC",
+      "itemCount": 0
+    }
+  ],
+  "uniqueItems": [
+    {
+      "name": "Productinformatie",
+      "packaging": "Verpakkings eenheid",
+      "category": "Uncategorized",
+      "appearsInShops": 9
+    },
+    {
+      "name": "OLA Raket",
+      "packaging": "per 54 a 55 ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Donut",
+      "packaging": "per 54 a 55 ml",
+      "category": "IJSJES",
+      "appearsInShops": 2
+    },
+    {
+      "name": "OLA Dracula",
+      "packaging": "per 35 x 50ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Super Twister",
+      "packaging": "per 24 a 120ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Magnum Classic",
+      "packaging": "per 20 a 110 ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Magnum Almond",
+      "packaging": "per 20 a 120 ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Magnum White",
+      "packaging": "per 20 a 120 ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "OLA Cornetto Classico",
+      "packaging": "per 20 a 85ml",
+      "category": "IJSJES",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Heineken blik 33CL",
+      "packaging": "per 24 blikjes",
+      "category": "DRANK",
+      "appearsInShops": 8
+    },
+    {
+      "name": "Heineken blik 0,0 %  33CL",
+      "packaging": "per 24 blikjes",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Desperados 33CL",
+      "packaging": "per 24 blikjes",
+      "category": "DRANK",
+      "appearsInShops": 4
+    },
+    {
+      "name": "La Croisade chardonnay grenache 25 CL",
+      "packaging": "per fles",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "La Croisade merlot rouge 25CL",
+      "packaging": "per fles",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "La Croisade rosé 25CL",
+      "packaging": "per fles",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Lisetto Prosecco Klein flesje 20CL",
+      "packaging": "per 12 flesjes",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Sourcy Mineraalwater blauw koolzuurvrij pet 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Sourcy Rood pet 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Sourcy Vitamin Water Braam Acai 0% 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Sourcy Vitamin Water DruifCitroen 0% 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Sourcy Vitamin Water Mango Guave 0% 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Rivella 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Ranja fruitmix aardbei/framboos 33CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Lipton Ice Tea Sparkling petfles 50 cl",
+      "packaging": "per 12 flesjes",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Lipton Ice Tea peach/green Zero 50 cl",
+      "packaging": "per 12 flesjes",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Pepsi petfles regular 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Pepsi petfles max 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Seven Up suikervrij 50 CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Sisi suikevrij 50CL",
+      "packaging": "per 6 pieces",
+      "category": "DRANK",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Rockstar original regular/suikervrij (blik) 25CL",
+      "packaging": "per 12 blikjes",
+      "category": "DRANK",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Lay's zakje chips naturel/paprika/bolognese",
+      "packaging": "doos per 20 zakjes a 40 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Pringles Original/Sourcream/Hot",
+      "packaging": "tray 12 blikjes a 40 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Haribo Starmix 75 gram",
+      "packaging": "doos 28 zakjes a 75 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Daelmans stroopwafels jumbo single",
+      "packaging": "doos 36 stuks a 39 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Milky way single reep",
+      "packaging": "doos 28 stuks a 43 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "M&m's pinda single",
+      "packaging": "doos 24 zakjes a 45 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Mars single reep",
+      "packaging": "doos 32 stuks a 51 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Snickers single reep",
+      "packaging": "doos 32 stuks a 50 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Twix single reep",
+      "packaging": "doos 25 stuks a 50 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "KitKat chocobar",
+      "packaging": "doos 36 stuks a 41,5 gr",
+      "category": "ETEN",
+      "appearsInShops": 7
+    },
+    {
+      "name": "Oud hollandse candy’s",
+      "packaging": "dos 60 stucks a 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Stroopwafel zakje",
+      "packaging": "dos 60 stucks a 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Stroopwafel koker yellow box",
+      "packaging": "dos 60 stucks a 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Pretzel",
+      "packaging": "dos 60 stucks a 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Huismix",
+      "packaging": "dos 60 stucks a 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Cubes Mature/ 4-6 months",
+      "packaging": "per 12 x 135g",
+      "category": "Cheese",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sourcy Mineraalwater blauw koolzuurvrij pet 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sourcy Rood pet 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sourcy Vitamin Water Braam Acai 0% 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sourcy Vitamin Water DruifCitroen 0% 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sourcy Vitamin Water Mango Guave 0% 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Rivella 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Ranja fruitmix aardbei/framboos 33CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Lipton Ice Tea Sparkling petfles 50 cl",
+      "packaging": "per 12 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Lipton Ice Tea peach/green Zero 50 cl",
+      "packaging": "per 12 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Pepsi petfles regular 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Pepsi petfles max 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Seven Up suikervrij 50 CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Sisi suikevrij 50CL",
+      "packaging": "per 6 flesjes ex emb €0,15 per fles",
+      "category": "DRANK SHOP",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Segura Viudas Cava Brut Fles 75 cl",
+      "packaging": "per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Marival Rose 75 cl",
+      "packaging": "per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Lisetto Prosecco Spumante Fles 75 cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Laroche Wit Chardonnay Fles 75 cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Laroche Rood Merlot Fles 75 cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Laroche Rose Fles 75 cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "La Croisade Chardonnay grenache 75cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "La Croisade Merlot rouge 75cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "La Croisade Rosé 75cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Heineken Pilsener Star Bottle krat",
+      "packaging": "per krat 24 stuks x 30cl",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Heineken 0.0% Krat",
+      "packaging": "per krat 24 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Sourcy Rood mineraalwater 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Sourcy Natuurlijk mineraalwater koolzuurvrij fles 20 cl krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Pepsi Regular cola 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Pepsi Max cola 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "7 Up Free 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Sisi Suikervrije Sinas 20cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Lipton Ice tea green 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Royal Club Sinaasappelsap 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Royal Club Appelsap 20 cl fles krat",
+      "packaging": "per krat 28 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Sourcy Natuurlijk mineraalwater koolzuurvrij 75 cl",
+      "packaging": "krat per 12",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Sourcy Rood mineraalwater 75 cl",
+      "packaging": "krat per 12",
+      "category": "DRANK CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Duyvis Pinda's gezouten nootjes",
+      "packaging": "doos 20 zakjes a 60 gr",
+      "category": "ETEN",
+      "appearsInShops": 6
+    },
+    {
+      "name": "Kaasblokjes - jong",
+      "packaging": "",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Kaasblokjes - oud",
+      "packaging": "",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Komijn - blokjes",
+      "packaging": "",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Daelmans Mini stroopwafel blokzak",
+      "packaging": "per doos a 6 stuks a 400g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Daelmans Mini stroopwafels Doos 2,5 kilo",
+      "packaging": "per doos 200 stuks a 8g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Leev Stroopwafel bio glutenvrij",
+      "packaging": "16 wikkels a 60g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Daendels Hotmix van rijstzoutjes en gecoate pinda's Emmer 5 kilo",
+      "packaging": "per emmer 5 kilo",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Daendels Roomboter kaasvlinders Emmer 750 gram",
+      "packaging": "per emmer 750 gram",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Pickwick Theezakjes Earl Grey Met Envelop Pak 100 zakjes x 2 gram",
+      "packaging": "per 100 stuks a 2g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Pickwick Theezakjes Green Lemon Met Envelop Pak 100 zakjes x 2 gram",
+      "packaging": "per 100 stuks a 2g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Pickwick Theezakjes Bosvruchten Met Envelop Pak 100 stuks x 1,5 gram",
+      "packaging": "per 100 stuks a 1,5g",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Apollo Zwarte pepermolen",
+      "packaging": "per 6 stuks x 45 gr",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Apollo Zeezoutmolen",
+      "packaging": "per 6 stuks",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Hekos Spekkoek 570gr",
+      "packaging": "per box",
+      "category": "ETEN CATERING",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Ola Donut",
+      "packaging": "per 54 a 55 ml",
+      "category": "IJSJES",
+      "appearsInShops": 3
+    },
+    {
+      "name": "Productinformatie",
+      "packaging": "verpakkingseenheid",
+      "category": "ETEN",
+      "appearsInShops": 5
+    },
+    {
+      "name": "Oud hollandse candy’s",
+      "packaging": "60 pieces per 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 4
+    },
+    {
+      "name": "Stroopwafel zakje",
+      "packaging": "60 pieces per 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 4
+    },
+    {
+      "name": "Stroopwafel koker yellow box",
+      "packaging": "60 pieces per 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 4
+    },
+    {
+      "name": "Pretzel",
+      "packaging": "60 pieces per 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 4
+    },
+    {
+      "name": "Huismix",
+      "packaging": "60 pieces per 150g",
+      "category": "Stromma branded",
+      "appearsInShops": 4
+    },
+    {
+      "name": "Villa Luisa Pinot Grigio 75cl",
+      "packaging": "fles per doos 6 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Minute Maid Appel",
+      "packaging": "per krat 24 stuks",
+      "category": "DRANK CATERING",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Amstel Rosé",
+      "packaging": "per krat 24 flessen",
+      "category": "PRIDE EVENT",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Floralba Pinot Grigio Blush Rose",
+      "packaging": "per doos 6 flessen",
+      "category": "PRIDE EVENT",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Desperados 33CL",
+      "packaging": "per 12 blikjes",
+      "category": "DRANK SHOP",
+      "appearsInShops": 2
+    },
+    {
+      "name": "Oud hollandse candy’s",
+      "packaging": "150 g per 150 in a box",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Stroopwafel zakje",
+      "packaging": "dos 160 stuckjes a 100g",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Stroopwafel koker yellow box",
+      "packaging": "dos 60",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Pretzel",
+      "packaging": "dos 120",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Huismix",
+      "packaging": "dos 120",
+      "category": "Stromma branded",
+      "appearsInShops": 1
+    },
+    {
+      "name": "Brand IPA 33CL",
+      "packaging": "per 12 blikjes",
+      "category": "DRANK SHOP",
+      "appearsInShops": 1
+    }
+  ]
+}

@@ -10,11 +10,13 @@ import {
   Package, 
   FileText, 
   History,
-  Upload,
   Users,
   Menu,
   X,
-  User
+  User,
+  Archive,
+  AlertTriangle,
+  Calendar
 } from 'lucide-react'
 
 interface SidebarClientProps {
@@ -27,12 +29,18 @@ export default function SidebarClient({ isAdmin }: SidebarClientProps) {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    ...(isAdmin ? [
+      { name: 'Stock Count Periods', href: '/dashboard/periods', icon: Calendar },
+    ] : []),
     { name: 'Shops', href: '/dashboard/shops', icon: Store },
     { name: 'Items', href: '/dashboard/items', icon: Package },
-    { name: 'Import', href: '/dashboard/items/import', icon: Upload },
     { name: 'Reports', href: '/dashboard/reports', icon: FileText },
     { name: 'History', href: '/dashboard/history', icon: History },
-    ...(isAdmin ? [{ name: 'Users', href: '/dashboard/users', icon: Users }] : []),
+    ...(isAdmin ? [
+      { name: 'Inventory', href: '/dashboard/inventory', icon: Archive },
+      { name: 'Wastage', href: '/dashboard/wastage', icon: AlertTriangle },
+      { name: 'Users', href: '/dashboard/users', icon: Users }
+    ] : []),
     { name: 'Profile', href: '/dashboard/profile', icon: User },
   ]
 

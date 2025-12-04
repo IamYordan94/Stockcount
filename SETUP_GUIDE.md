@@ -26,9 +26,16 @@
    - Go to **SQL Editor** and run:
    ```sql
    INSERT INTO user_roles (id, role, shop_id, must_change_password)
-   VALUES ('YOUR_UUID_HERE', 'admin', NULL, false);
+   VALUES ('YOUR_UUID_HERE', 'admin', NULL, false)
+   ON CONFLICT (id) 
+   DO UPDATE SET 
+     role = 'admin',
+     shop_id = NULL,
+     must_change_password = false;
    ```
    Replace `YOUR_UUID_HERE` with your actual UUID
+   
+   **Note**: This query works whether you already have a user_roles entry or not.
 
 3. **Refresh the app** - You should now see "Users" in the sidebar!
 
@@ -53,7 +60,7 @@ Once you have one admin, you can create all other users (including more admins) 
 2. **Enter details**:
    - Email: `staff@example.com`
    - Password: Set a temporary password (e.g., `TempPass123!`)
-   - Role: Choose `Staff`, `Manager`, or `Admin`
+   - Role: Choose `Staff` or `Admin`
 3. **Click "Create User"**
 4. **Assign shops** to the user:
    - Click the **Edit** icon next to the user
@@ -93,11 +100,6 @@ Each month, assign shops to users:
   - Can assign shops to anyone
   - Can import Excel files
   - Full access to everything
-
-- **Manager**: 
-  - Can see only assigned shops
-  - Can view and update stock
-  - Can view reports for assigned shops
 
 - **Staff**: 
   - Can see only assigned shops

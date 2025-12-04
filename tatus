@@ -1,0 +1,5 @@
+[33m7d67fba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31mStockcount/main[m[33m)[m Add role selection page for first user
+[33m60d548d[m Fix registration, import, and add mobile responsiveness - Auto-create user_roles on registration - Fix password change flow - Add admin permission check for imports - Improve error messages - Make StockTable mobile-responsive (card layout) - Make Sidebar collapsible on mobile - Improve QuantityInput for mobile (number keyboard, larger buttons)
+[33m216d83a[m Fix SQL syntax: Use unique index instead of UNIQUE constraint with WHERE clause
+[33mc12acd4[m Fix SQL migration to handle existing policies
+[33m3281aa4[m Add complete user management system with password reset, shop assignments, and real-time sync
