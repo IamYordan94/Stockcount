@@ -67,8 +67,8 @@ export default function ChangePasswordPage() {
         throw new Error(data.error || 'Failed to change password')
       }
 
-      // Redirect to setup page to choose role (if first user) or dashboard
-      router.push('/setup')
+      // Redirect to dashboard
+      router.push('/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to change password')
     } finally {

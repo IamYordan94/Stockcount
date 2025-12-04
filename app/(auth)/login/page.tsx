@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import Link from 'next/link'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -38,18 +37,7 @@ export default function LoginPage() {
       if (role?.must_change_password) {
         router.push('/change-password')
       } else {
-        // Otherwise, check if first user (no admins exist) and redirect to setup
-        const { data: admins } = await supabase
-          .from('user_roles')
-          .select('id')
-          .eq('role', 'admin')
-          .limit(1)
-
-        if (!admins || admins.length === 0) {
-          router.push('/setup')
-        } else {
-          router.push('/dashboard')
-        }
+        router.push('/dashboard')
       }
       router.refresh()
     }
@@ -112,12 +100,6 @@ export default function LoginPage() {
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
-          </div>
-
-          <div className="text-center">
-            <Link href="/register" className="text-sm text-indigo-600 hover:text-indigo-500">
-              Don&apos;t have an account? Register
-            </Link>
           </div>
         </form>
       </div>

@@ -49,6 +49,7 @@ export default function StockTableClient({ items: initialItems, shopId }: StockT
     return () => {
       supabase.removeChannel(channel)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopId])
 
   const fetchUpdatedItems = async () => {

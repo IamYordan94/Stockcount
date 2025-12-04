@@ -13,6 +13,7 @@ export default function SetupPage() {
 
   useEffect(() => {
     checkIfFirstUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const checkIfFirstUser = async () => {
@@ -109,7 +110,7 @@ export default function SetupPage() {
             Welcome! Choose Your Role
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            You're the first user. Would you like to become an administrator?
+            You&apos;re the first user. Would you like to become an administrator?
           </p>
         </div>
 

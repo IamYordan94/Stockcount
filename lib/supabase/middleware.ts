@@ -42,8 +42,7 @@ export async function updateSession(request: NextRequest) {
 
   if (
     !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/register')
+    !request.nextUrl.pathname.startsWith('/login')
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
@@ -51,11 +50,16 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // Block access to register route
+  if (request.nextUrl.pathname.startsWith('/register')) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/login'
+    return NextResponse.redirect(url)
+  }
+
   // Check if user must change password
   if (user && !request.nextUrl.pathname.startsWith('/login') && 
-      !request.nextUrl.pathname.startsWith('/register') &&
-      !request.nextUrl.pathname.startsWith('/change-password') &&
-      !request.nextUrl.pathname.startsWith('/setup')) {
+      !request.nextUrl.pathname.startsWith('/change-password')) {
     const { data: role, error: roleError } = await supabase
       .from('user_roles')
       .select('must_change_password')

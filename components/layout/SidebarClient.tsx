@@ -13,7 +13,8 @@ import {
   Upload,
   Users,
   Menu,
-  X
+  X,
+  User
 } from 'lucide-react'
 
 interface SidebarClientProps {
@@ -32,6 +33,7 @@ export default function SidebarClient({ isAdmin }: SidebarClientProps) {
     { name: 'Reports', href: '/dashboard/reports', icon: FileText },
     { name: 'History', href: '/dashboard/history', icon: History },
     ...(isAdmin ? [{ name: 'Users', href: '/dashboard/users', icon: Users }] : []),
+    { name: 'Profile', href: '/dashboard/profile', icon: User },
   ]
 
   return (
