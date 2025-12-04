@@ -19,7 +19,7 @@ interface WastageEntry {
 export default function WastagePage() {
   const [wastage, setWastage] = useState<WastageEntry[]>([])
   const [shops, setShops] = useState<Array<{ id: string; name: string }>>([])
-  const [items, setItems] = useState<Array<{ id: string; name: string }>>([])
+  const [items, setItems] = useState<Array<{ id: string; name: string; category: string }>>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [formData, setFormData] = useState({
@@ -61,10 +61,11 @@ export default function WastagePage() {
         .order('name')
       setShops(shopsData || [])
 
-      // Fetch items
+      // Fetch items with categories
       const { data: itemsData } = await supabase
         .from('items')
-        .select('id, name')
+        .select('id, name, category')
+        .order('category')
         .order('name')
       setItems(itemsData || [])
     } catch (err) {
@@ -210,11 +211,30 @@ export default function WastagePage() {
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 >
                   <option value="">Select a product</option>
-                  {items.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
+                  {(() => {
+                    // Group items by category
+                    const grouped = items.reduce((acc, item) => {
+                      const category = item.category || 'Uncategorized'
+                      if (!acc[category]) {
+                        acc[category] = []
+                      }
+                      acc[category].push(item)
+                      return acc
+                    }, {} as Record<string, typeof items>)
+
+                    // Sort categories
+                    const sortedCategories = Object.keys(grouped).sort()
+
+                    return sortedCategories.map((category) => (
+                      <optgroup key={category} label={category}>
+                        {grouped[category].map((item) => (
+                          <option key={item.id} value={item.id}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))
+                  })()}
                 </select>
               </div>
 

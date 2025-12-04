@@ -71,10 +71,17 @@ export async function POST(
     }
 
     // Deactivate all current assignments for this period
-    await supabase
+    const { error: deactivateError } = await supabase
       .from('shop_assignments')
       .update({ active: false })
       .eq('period_id', params.id)
+
+    if (deactivateError) {
+      console.error('Error deactivating assignments:', deactivateError)
+      return NextResponse.json({ 
+        error: `Failed to deactivate existing assignments: ${deactivateError.message}` 
+      }, { status: 500 })
+    }
 
     // Create new assignments
     const newAssignments: any[] = []
@@ -83,10 +90,15 @@ export async function POST(
       const { user_id, shop_ids } = assignment
       
       if (!user_id || !Array.isArray(shop_ids)) {
+        console.warn('Invalid assignment:', assignment)
         continue
       }
 
       for (const shop_id of shop_ids) {
+        if (!shop_id) {
+          console.warn('Invalid shop_id in assignment:', assignment)
+          continue
+        }
         newAssignments.push({
           user_id,
           shop_id,
@@ -103,11 +115,16 @@ export async function POST(
         .insert(newAssignments)
 
       if (insertError) {
-        return NextResponse.json({ error: insertError.message }, { status: 500 })
+        console.error('Error inserting assignments:', insertError)
+        return NextResponse.json({ 
+          error: `Failed to create assignments: ${insertError.message}`,
+          details: insertError.details,
+          hint: insertError.hint
+        }, { status: 500 })
       }
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, count: newAssignments.length })
   } catch (error) {
     console.error('Error assigning shops:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

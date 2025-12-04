@@ -19,9 +19,10 @@ interface StockItem {
 interface StockTableClientProps {
   items: StockItem[]
   shopId: string
+  isAdmin?: boolean
 }
 
-export default function StockTableClient({ items: initialItems, shopId }: StockTableClientProps) {
+export default function StockTableClient({ items: initialItems, shopId, isAdmin = false }: StockTableClientProps) {
   const [items, setItems] = useState(initialItems)
   const [syncing, setSyncing] = useState(false)
 
@@ -103,6 +104,31 @@ export default function StockTableClient({ items: initialItems, shopId }: StockT
     }
   }
 
+  const handleUpdateItem = async (itemId: string, name: string, packagingUnit: string) => {
+    try {
+      const response = await fetch(`/api/items/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          packaging_unit_description: packagingUnit,
+        }),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to update item')
+      }
+
+      // Refresh items after update
+      await fetchUpdatedItems()
+    } catch (error) {
+      throw error
+    }
+  }
+
   return (
     <div>
       {syncing && (
@@ -110,7 +136,7 @@ export default function StockTableClient({ items: initialItems, shopId }: StockT
           Syncing changes...
         </div>
       )}
-      <StockTable items={items} onUpdate={handleUpdate} />
+      <StockTable items={items} onUpdate={handleUpdate} onUpdateItem={isAdmin ? handleUpdateItem : undefined} />
     </div>
   )
 }

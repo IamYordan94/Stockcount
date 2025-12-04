@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { canAccessShop } from '@/lib/utils/roles'
+import { canAccessShop, getUserRole } from '@/lib/utils/roles'
 import { redirect } from 'next/navigation'
 import StockTableClient from '@/components/stock/StockTableClient'
 
@@ -20,6 +20,10 @@ export default async function ShopDetailPage({
   if (!hasAccess) {
     redirect('/dashboard/shops')
   }
+
+  // Check if user is admin (for item editing)
+  const role = await getUserRole(user.id)
+  const isAdmin = role === 'admin'
 
   // Get shop
   const { data: shop, error: shopError } = await supabase
@@ -83,7 +87,7 @@ export default async function ShopDetailPage({
       </div>
 
       {stockItems.length > 0 ? (
-        <StockTableClient items={stockItems} shopId={params.id} />
+        <StockTableClient items={stockItems} shopId={params.id} isAdmin={isAdmin} />
       ) : (
         <div className="text-center py-12 bg-white rounded-lg shadow">
           <p className="text-gray-500">No stock items found for this shop.</p>

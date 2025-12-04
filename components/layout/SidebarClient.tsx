@@ -33,7 +33,6 @@ export default function SidebarClient({ isAdmin }: SidebarClientProps) {
       { name: 'Stock Count Periods', href: '/dashboard/periods', icon: Calendar },
     ] : []),
     { name: 'Shops', href: '/dashboard/shops', icon: Store },
-    { name: 'Items', href: '/dashboard/items', icon: Package },
     { name: 'Reports', href: '/dashboard/reports', icon: FileText },
     { name: 'History', href: '/dashboard/history', icon: History },
     ...(isAdmin ? [

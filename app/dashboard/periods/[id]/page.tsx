@@ -131,12 +131,19 @@ export default function PeriodDetailPage() {
         body: JSON.stringify({ assignments: assignmentsArray }),
       })
 
-      if (!assignmentsRes.ok) throw new Error('Failed to save shop assignments')
+      if (!assignmentsRes.ok) {
+        const errorData = await assignmentsRes.json().catch(() => ({}))
+        const errorMessage = errorData.error || 'Failed to save shop assignments'
+        throw new Error(errorMessage)
+      }
 
       alert('Period updated successfully!')
       router.push('/dashboard/periods')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save')
+      const errorMessage = err instanceof Error ? err.message : 'Failed to save'
+      console.error('Error saving period:', err)
+      setError(errorMessage)
+      alert(`Error: ${errorMessage}`)
     } finally {
       setSaving(false)
     }
