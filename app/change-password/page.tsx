@@ -64,14 +64,16 @@ export default function ChangePasswordPage() {
         body: JSON.stringify({ newPassword }),
       })
 
-      // Parse response regardless of status
+      // Read response as text first (can only read once)
+      const responseText = await response.text()
+      
+      // Try to parse as JSON
       let responseData
       try {
-        responseData = await response.json()
+        responseData = JSON.parse(responseText)
       } catch (parseError) {
-        // If response is not JSON, handle as text error
-        const textError = await response.text()
-        throw new Error(`Server error: ${response.status} ${response.statusText}. ${textError || 'Please try again.'}`)
+        // If response is not JSON, use the text as error message
+        throw new Error(`Server error: ${response.status} ${response.statusText}. ${responseText || 'Please try again.'}`)
       }
 
       if (!response.ok) {
