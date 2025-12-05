@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
+// Ensure this route uses Node.js runtime (not Edge) for better compatibility
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
   try {
     console.log('[Change Password] Starting password change process')
