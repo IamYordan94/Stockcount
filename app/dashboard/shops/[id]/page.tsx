@@ -34,8 +34,22 @@ export default async function ShopDetailPage({
 
   if (shopError || !shop) {
     return (
-      <div className="text-red-600">
-        Shop not found
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <h3 className="text-red-800 font-semibold mb-2">Error loading shop</h3>
+        <p className="text-red-600 text-sm">{shopError?.message || 'Shop not found'}</p>
+        {shopError && (
+          <>
+            <p className="text-red-600 text-sm mt-2">Error code: {shopError.code}</p>
+            <p className="text-red-600 text-sm mt-2">Details: {shopError.details || 'No details'}</p>
+            <p className="text-red-600 text-sm mt-2">Hint: {shopError.hint || 'No hint'}</p>
+          </>
+        )}
+        <p className="text-gray-600 text-xs mt-4">
+          This might be an RLS (Row Level Security) issue. Make sure:
+          <br />1. You are assigned to this shop in an active stock count period
+          <br />2. The shop exists in the database
+          <br />3. Visit <a href="/dashboard/debug" className="text-blue-600 underline">/dashboard/debug</a> to check your role and assignments
+        </p>
       </div>
     )
   }
