@@ -143,7 +143,7 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
   }, {} as Record<string, StockItem[]>)
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-1 md:space-y-4">
       {Object.entries(groupedItems).map(([category, categoryItems]) => {
         const isCollapsed = collapsedCategories.has(category)
         const currentCounts = counts[categoryItems[0]?.id] || {}
@@ -152,13 +152,13 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
           <div key={category} className="bg-white shadow rounded-lg overflow-hidden">
             <button
               onClick={() => toggleCategory(category)}
-              className="w-full bg-gray-50 px-4 py-3 border-b flex items-center justify-between hover:bg-gray-100 transition-colors"
+              className="w-full bg-gray-50 px-2 py-1.5 md:px-4 md:py-3 border-b flex items-center justify-between hover:bg-gray-100 transition-colors"
             >
-              <h3 className="text-lg font-semibold text-gray-900">{category}</h3>
+              <h3 className="text-xs md:text-lg font-semibold text-gray-900">{category}</h3>
               {isCollapsed ? (
-                <ChevronDown className="h-5 w-5 text-gray-500" />
+                <ChevronDown className="h-3 w-3 md:h-5 md:w-5 text-gray-500" />
               ) : (
-                <ChevronUp className="h-5 w-5 text-gray-500" />
+                <ChevronUp className="h-3 w-3 md:h-5 md:w-5 text-gray-500" />
               )}
             </button>
             
@@ -356,8 +356,8 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                     const editedItem = editingItem[item.id]
 
                     return (
-                      <div key={item.id} className="p-4">
-                        <div className="mb-3">
+                      <div key={item.id} className="p-2">
+                        <div className="mb-2">
                           {isEditingItem && editedItem ? (
                             <div className="space-y-2">
                               <input
@@ -369,7 +369,7 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                                     [item.id]: { ...editedItem, name: e.target.value },
                                   })
                                 }}
-                                className="w-full px-3 py-2 text-base border border-gray-300 rounded-md"
+                                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
                                 placeholder="Item name"
                               />
                               <input
@@ -381,19 +381,19 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                                     [item.id]: { ...editedItem, packaging_unit: e.target.value },
                                   })
                                 }}
-                                className="w-full px-3 py-2 text-base border border-gray-300 rounded-md"
+                                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
                                 placeholder="Packaging unit"
                               />
                               <div className="flex space-x-2">
                                 <button
                                   onClick={() => handleSaveItem(item.id)}
-                                  className="flex-1 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 min-h-[44px]"
+                                  className="flex-1 px-3 py-1.5 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 min-h-[36px]"
                                 >
                                   Save
                                 </button>
                                 <button
                                   onClick={() => handleCancelItem(item.id)}
-                                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-300 min-h-[44px]"
+                                  className="flex-1 px-3 py-1.5 bg-gray-200 text-gray-700 text-xs font-medium rounded-md hover:bg-gray-300 min-h-[36px]"
                                 >
                                   Cancel
                                 </button>
@@ -401,14 +401,14 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                             </div>
                           ) : (
                             <>
-                              <h4 className="text-sm font-medium text-gray-900">{item.item_name}</h4>
+                              <h4 className="text-xs font-medium text-gray-900">{item.item_name}</h4>
                               {item.packaging_unit_description && (
-                                <p className="text-xs text-gray-500 mt-1">{item.packaging_unit_description}</p>
+                                <p className="text-[10px] text-gray-500 mt-0.5">{item.packaging_unit_description}</p>
                               )}
                               {onUpdateItem && (
                                 <button
                                   onClick={() => handleEditItem(item.id)}
-                                  className="mt-2 text-xs text-indigo-600 hover:text-indigo-900"
+                                  className="mt-1 text-[10px] text-indigo-600 hover:text-indigo-900"
                                 >
                                   Edit Item
                                 </button>
@@ -417,18 +417,18 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                           )}
                         </div>
                         
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                           <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Aantal</label>
+                            <label className="block text-[10px] font-medium text-gray-700 mb-0.5">Aantal</label>
                             <div className="flex items-center border border-gray-300 rounded-md">
                               <button
                                 type="button"
                                 onClick={() => handleCountChange(item.id, 'packaging_units', Math.max(0, itemCounts.packaging_units - 1))}
                                 disabled={itemCounts.packaging_units <= 0 || isUpdating}
-                                className="p-3 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                className="p-1.5 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed min-h-[32px] min-w-[32px] flex items-center justify-center"
                                 aria-label="Decrease"
                               >
-                                <span className="text-xl">−</span>
+                                <span className="text-base">−</span>
                               </button>
                               <input
                                 type="number"
@@ -439,34 +439,34 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                                   handleCountChange(item.id, 'packaging_units', value)
                                 }}
                                 min={0}
-                                className="flex-1 px-3 py-2 text-base text-center border-0 focus:ring-0 focus:outline-none"
+                                className="flex-1 px-2 py-1 text-sm text-center border-0 focus:ring-0 focus:outline-none"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleCountChange(item.id, 'packaging_units', itemCounts.packaging_units + 1)}
                                 disabled={isUpdating}
-                                className="p-3 hover:bg-gray-100 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                className="p-1.5 hover:bg-gray-100 min-h-[32px] min-w-[32px] flex items-center justify-center"
                                 aria-label="Increase"
                               >
-                                <span className="text-xl">+</span>
+                                <span className="text-base">+</span>
                               </button>
                             </div>
                             {isUpdating && (
-                              <span className="mt-1 text-xs text-gray-500 block">Saving...</span>
+                              <span className="mt-0.5 text-[10px] text-gray-500 block">Saving...</span>
                             )}
                           </div>
                           
                           <div>
-                            <label className="block text-xs font-medium text-gray-700 mb-1">Losse Stuks</label>
+                            <label className="block text-[10px] font-medium text-gray-700 mb-0.5">Losse Stuks</label>
                             <div className="flex items-center border border-gray-300 rounded-md">
                               <button
                                 type="button"
                                 onClick={() => handleCountChange(item.id, 'loose_pieces', Math.max(0, itemCounts.loose_pieces - 1))}
                                 disabled={itemCounts.loose_pieces <= 0 || isUpdating}
-                                className="p-3 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                className="p-1.5 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed min-h-[32px] min-w-[32px] flex items-center justify-center"
                                 aria-label="Decrease"
                               >
-                                <span className="text-xl">−</span>
+                                <span className="text-base">−</span>
                               </button>
                               <input
                                 type="number"
@@ -477,16 +477,16 @@ export default function StockTable({ items, onUpdate, onUpdateItem, loading }: S
                                   handleCountChange(item.id, 'loose_pieces', value)
                                 }}
                                 min={0}
-                                className="flex-1 px-3 py-2 text-base text-center border-0 focus:ring-0 focus:outline-none"
+                                className="flex-1 px-2 py-1 text-sm text-center border-0 focus:ring-0 focus:outline-none"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleCountChange(item.id, 'loose_pieces', itemCounts.loose_pieces + 1)}
                                 disabled={isUpdating}
-                                className="p-3 hover:bg-gray-100 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                                className="p-1.5 hover:bg-gray-100 min-h-[32px] min-w-[32px] flex items-center justify-center"
                                 aria-label="Increase"
                               >
-                                <span className="text-xl">+</span>
+                                <span className="text-base">+</span>
                               </button>
                             </div>
                           </div>
