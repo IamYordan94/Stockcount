@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../../auth-provider'
 import { createClient } from '@/lib/supabase'
@@ -257,7 +257,7 @@ export default function CountPage() {
     }
   }, [selectedShop, selectedSession])
 
-  function updateCount(itemId: string, field: 'boxes' | 'singles', value: number) {
+  const updateCount = useCallback((itemId: string, field: 'boxes' | 'singles', value: number) => {
     // Validate input: ensure non-negative integer, cap at reasonable maximum
     const numValue = Math.max(0, Math.min(999999, Math.floor(value || 0)))
     
@@ -271,19 +271,44 @@ export default function CountPage() {
         singles: field === 'singles' ? numValue : (prev[itemId]?.singles || 0),
       },
     }))
-  }
+  }, [])
 
-  function incrementCount(itemId: string, field: 'boxes' | 'singles') {
-    const current = counts[itemId]?.[field] || 0
-    updateCount(itemId, field, current + 1)
-  }
+  const incrementCount = useCallback((itemId: string, field: 'boxes' | 'singles') => {
+    setCounts((prev) => {
+      const current = prev[itemId]?.[field] || 0
+      const newValue = current + 1
+      return {
+        ...prev,
+        [itemId]: {
+          ...prev[itemId],
+          item_id: itemId,
+          [field]: newValue,
+          boxes: field === 'boxes' ? newValue : (prev[itemId]?.boxes || 0),
+          singles: field === 'singles' ? newValue : (prev[itemId]?.singles || 0),
+        },
+      }
+    })
+  }, [])
 
-  function decrementCount(itemId: string, field: 'boxes' | 'singles') {
-    const current = counts[itemId]?.[field] || 0
-    if (current > 0) {
-      updateCount(itemId, field, current - 1)
-    }
-  }
+  const decrementCount = useCallback((itemId: string, field: 'boxes' | 'singles') => {
+    setCounts((prev) => {
+      const current = prev[itemId]?.[field] || 0
+      if (current > 0) {
+        const newValue = current - 1
+        return {
+          ...prev,
+          [itemId]: {
+            ...prev[itemId],
+            item_id: itemId,
+            [field]: newValue,
+            boxes: field === 'boxes' ? newValue : (prev[itemId]?.boxes || 0),
+            singles: field === 'singles' ? newValue : (prev[itemId]?.singles || 0),
+          },
+        }
+      }
+      return prev
+    })
+  }, [])
 
   async function saveCounts() {
     if (!selectedSession || !selectedShop) {
@@ -388,9 +413,9 @@ export default function CountPage() {
     }
   }
 
-  function getItemsByCategory(categoryId: string) {
+  const getItemsByCategory = useCallback((categoryId: string) => {
     return items.filter((item) => item.category_id === categoryId)
-  }
+  }, [items])
 
   if (loading || loadingData) {
     return (

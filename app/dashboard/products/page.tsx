@@ -42,9 +42,16 @@ export default function ProductsPage() {
   const [showManual, setShowManual] = useState(false)
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
   const [bulkDeleteMode, setBulkDeleteMode] = useState(false)
+  const [showImportModal, setShowImportModal] = useState(false)
+  const [importing, setImporting] = useState(false)
 
   useEffect(() => {
-    if (!loading && (!user || role !== 'manager')) {
+    if (loading) return // Wait for auth to finish loading
+    if (!user) {
+      router.push('/login')
+      return
+    }
+    if (role !== 'manager') {
       router.push('/dashboard')
       return
     }

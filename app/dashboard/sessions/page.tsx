@@ -13,6 +13,8 @@ import Modal from '@/components/ui/Modal'
 import EmptyState from '@/components/ui/EmptyState'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
+import HelpButton from '@/components/ui/HelpButton'
+import UserManual from '@/components/ui/UserManual'
 import type { StockCountSession } from '@/types'
 
 type TabType = 'active' | 'completed'
@@ -48,7 +50,12 @@ export default function SessionsPage() {
   const [showManual, setShowManual] = useState(false)
 
   useEffect(() => {
-    if (!loading && (!user || role !== 'manager')) {
+    if (loading) return // Wait for auth to finish loading
+    if (!user) {
+      router.push('/login')
+      return
+    }
+    if (role !== 'manager') {
       router.push('/dashboard')
       return
     }

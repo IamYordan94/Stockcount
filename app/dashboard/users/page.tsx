@@ -47,7 +47,12 @@ export default function UsersPage() {
   const [showManual, setShowManual] = useState(false)
 
   useEffect(() => {
-    if (!loading && (!user || role !== 'manager')) {
+    if (loading) return // Wait for auth to finish loading
+    if (!user) {
+      router.push('/login')
+      return
+    }
+    if (role !== 'manager') {
       router.push('/dashboard')
       return
     }
@@ -68,7 +73,7 @@ export default function UsersPage() {
         return
       }
 
-      console.log('Session found, access_token length:', session.access_token?.length || 0)
+      // Session validated, proceed with API call
 
       const response = await fetch('/api/admin/users', {
         credentials: 'include',

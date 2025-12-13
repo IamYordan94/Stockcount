@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../auth-provider'
 import Link from 'next/link'
-import { LogOut, Package, Users, Settings, FileSpreadsheet, Store, Sparkles } from 'lucide-react'
+import { LogOut, Package, Users, Settings, FileSpreadsheet, Store, Sparkles, BarChart3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import HelpButton from '@/components/ui/HelpButton'
@@ -74,15 +74,11 @@ export default function DashboardPage() {
     
     setCheckingRole(true)
     try {
-      console.log('Checking role for user:', user.id)
-      
       const { data: roleData, error: roleError } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', user.id)
         .maybeSingle()
-      
-      console.log('Role check result:', { roleData, roleError })
       
       if (roleError) {
         console.error('Role check error:', roleError)
