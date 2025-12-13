@@ -124,7 +124,7 @@ export default function ProductsPage() {
         toast.error('Error loading shop items: ' + error.message)
         setShopItems(new Set())
       } else {
-        setShopItems(new Set(data?.map((si) => si.item_id) || []))
+        setShopItems(new Set((data as Array<{ item_id: string }> | null)?.map((si) => si.item_id) || []))
       }
     } catch (err: any) {
       console.error('Error fetching shop items:', err)

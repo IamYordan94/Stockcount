@@ -80,7 +80,7 @@ export default function ShopItemsPage() {
         toast.error('Error loading assigned items: ' + error.message)
         setAssignedItems(new Set())
       } else {
-        setAssignedItems(new Set(data?.map((si) => si.item_id) || []))
+        setAssignedItems(new Set((data as Array<{ item_id: string }> | null)?.map((si) => si.item_id) || []))
       }
     } catch (err: any) {
       console.error('Error fetching assigned items:', err)
