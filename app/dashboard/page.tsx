@@ -50,7 +50,7 @@ export default function DashboardPage() {
         console.error('Error fetching assigned shops:', error)
         setAssignedShops([])
       } else {
-        const shops = assignments?.map((a) => ({
+        const shops = (assignments as Array<{ shop_id: string; shops: { name: string } | null }> | null)?.map((a) => ({
           id: a.shop_id,
           name: (a.shops as any)?.name || 'Unknown Shop',
         })) || []
